@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JobNest - Find Your Dream Job</title>
+
+    <style>
+
+        /* =========================
+           BASIC SETTINGS
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7ff;
+            color: #222;
+            transition: 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            width: 100%;
+            padding: 18px 7%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6c35de;
+        }
+
+        .logo span {
+            color: #ff4d8d;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-links a:hover {
+            color: #6c35de;
+        }
+
+        .login-btn {
+            padding: 10px 18px;
+            border-radius: 20px;
+            background: #6c35de;
+            color: white !important;
+        }
+
+        #darkBtn {
+            border: none;
+            background: #222;
+            color: white;
+            padding: 9px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero {
+            min-height: 600px;
+            padding: 80px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #6c35de,
+                    #9c4dff,
+                    #ff4d8d
+                );
+            color: white;
+        }
+
+        .hero-content {
+            width: 50%;
+        }
+
+        .hero-content h1 {
+            font-size: 55px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: #ffe66d;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        /* SEARCH BOX */
+
+        .search-box {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            display: flex;
+            gap: 10px;
+            max-width: 650px;
+        }
+
+        .search-box input,
+        .search-box select {
+            border: none;
+            outline: none;
+            padding: 15px;
+            font-size: 15px;
+            flex: 1;
+        }
+
+        .search-box button {
+            border: none;
+            background: #ff4d8d;
+            color: white;
+            padding: 0 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-box button:hover {
+            background: #e83274;
+        }
+
+        /* =========================
+           IMAGE SLIDER
+        ========================= */
+
+        .slider {
+            width: 48%;
+            height: 400px;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .slides {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            animation: slide 12s infinite;
+        }
+
+        .slides img {
+            width: 33.333%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes slide {
+
+            0% {
+                transform: translateX(0);
+            }
+
+            30% {
+                transform: translateX(0);
+            }
+
+            35% {
+                transform: translateX(-33.333%);
+            }
+
+            65% {
+                transform: translateX(-33.333%);
+            }
+
+            70% {
+                transform: translateX(-66.666%);
+            }
+
+            95% {
+                transform: translateX(-66.666%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================= */
+
+        section {
+            padding: 70px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        /* =========================
+           JOB TYPE CARDS
+        ========================= */
+
+        .job-types {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .type-card {
+            padding: 30px 20px;
+            background: white;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .type-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(108,53,222,0.2);
+        }
+
+        .type-icon {
+            width: 65px;
+            height: 65px;
+            margin: auto;
+            margin-bottom: 15px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .purple {
+            background: #eee6ff;
+        }
+
+        .pink {
+            background: #ffe5ef;
+        }
+
+        .blue {
+            background: #e3f2ff;
+        }
+
+        .green {
+            background: #e3fff1;
+        }
+
+        .yellow {
+            background: #fff6d8;
+        }
+
+        .orange {
+            background: #ffe9db;
+        }
+
+        .type-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .type-card p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =========================
+           JOB SECTION
+        ========================= */
+
+        .job-section {
+            background: #eef0ff;
+        }
+
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .filter-buttons button {
+            border: none;
+            padding: 11px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .filter-buttons button:hover,
+        .filter-buttons .active {
+            background: #6c35de;
+            color: white;
+        }
+
+        .jobs-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .job-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .company-logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            background: linear-gradient(135deg,#6c35de,#ff4d8d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .save-btn {
+            border: none;
+            background: #f2f2f2;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .save-btn.saved {
+            background: #ffe5ef;
+            color: #ff2777;
+        }
+
+        .job-card h3 {
+            margin: 20px 0 8px;
+            font-size: 20px;
+        }
+
+        .company {
+            color: #6c35de;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .job-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .salary {
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eee6ff;
+            color: #6c35de;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .apply-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg,#6c35de,#ff4d8d);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .apply-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* =========================
+           CAREERS
+        ========================= */
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+        }
+
+        .career {
+            padding: 30px 15px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .career:hover {
+            transform: scale(1.05);
+        }
+
+        .career:nth-child(1) {
+            background: linear-gradient(135deg,#667eea,#764ba2);
+        }
+
+        .career:nth-child(2) {
+            background: linear-gradient(135deg,#11998e,#38ef7d);
+        }
+
+        .career:nth-child(3) {
+            background: linear-gradient(135deg,#ff9966,#ff5e62);
+        }
+
+        .career:nth-child(4) {
+            background: linear-gradient(135deg,#ee0979,#ff6a00);
+        }
+
+        .career:nth-child(5) {
+            background: linear-gradient(135deg,#396afc,#2948ff);
+        }
+
+        .career:nth-child(6) {
+            background: linear-gradient(135deg,#f7971e,#ffd200);
+        }
+
+        .career:nth-child(7) {
+            background: linear-gradient(135deg,#8e2de2,#4a00e0);
+        }
+
+        .career:nth-child(8) {
+            background: linear-gradient(135deg,#00c6ff,#0072ff);
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            margin: 50px 7%;
+            padding: 70px 30px;
+            text-align: center;
+            border-radius: 30px;
+            color: white;
+            background:
+                linear-gradient(
+                    120deg,
+                    #6c35de,
+                    #ff4d8d
+                );
+        }
+
+        .cta h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            margin-bottom: 25px;
+        }
+
+        .cta button {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: #6c35de;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #171323;
+            color: white;
+            padding: 50px 7% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        footer a {
+            display: block;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid #333;
+            margin-top: 30px;
+            padding-top: 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        /* =========================
+           POPUP
+        ========================= */
+
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-box {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            padding: 35px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .popup-box h2 {
+            margin-bottom: 20px;
+            color: #6c35de;
+        }
+
+        .popup-box input,
+        .popup-box textarea {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .popup-box button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #6c35de;
+            color: white;
+            cursor: pointer;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           DARK MODE
+        ========================= */
+
+        body.dark {
+            background: #101018;
+            color: white;
+        }
+
+        body.dark nav,
+        body.dark .type-card,
+        body.dark .job-card,
+        body.dark .search-box,
+        body.dark .filter-buttons button {
+            background: #1d1d29;
+            color: white;
+        }
+
+        body.dark .nav-links a,
+        body.dark .section-title h2,
+        body.dark .type-card h3,
+        body.dark .job-card h3 {
+            color: white;
+        }
+
+        body.dark .job-section {
+            background: #151522;
+        }
+
+        body.dark .section-title p,
+        body.dark .type-card p,
+        body.dark .job-info {
+            color: #bbb;
+        }
+
+        body.dark .popup-box {
+            background: #1d1d29;
+            color: white;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+        @media(max-width:1000px) {
+
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-content,
+            .slider {
+                width: 100%;
+            }
+
+            .job-types {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .jobs-container {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .career-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:650px) {
+
+            nav {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                padding: 14px;
+            }
+
+            .slider {
+                height: 280px;
+            }
+
+            section {
+                padding: 50px 5%;
+            }
+
+            .job-types,
+            .jobs-container,
+            .career-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                margin: 30px 5%;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav>
+
+        <div class="logo">
+            Job<span>Nest</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#jobs">Find Jobs</a>
+            <a href="#types">Job Types</a>
+            <a href="#careers">Careers</a>
+            <a href="#contact">Contact</a>
+            <a href="#" class="login-btn">Login / Sign Up</a>
+        </div>
+
+        <button id="darkBtn">🌙</button>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Discover Your
+                <span>Dream Career</span>
+            </h1>
+
+            <p>
+                Find your perfect job from thousands of opportunities.
+                Explore Full-Time, Freelance, Remote, Part-Time,
+                Internship and Government jobs.
+            </p>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Job title or keyword"
+                >
+
+                <select id="locationInput">
+
+                    <option value="">All Locations</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Visakhapatnam">Visakhapatnam</option>
+                    <option value="Bengaluru">Bengaluru</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Remote">Remote</option>
+
+                </select>
+
+                <button onclick="searchJobs()">
+                    🔍 Search
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE SLIDER -->
+
+        <div class="slider">
+
+            <div class="slides">
+
+                <img
+                    src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85"
+                    alt="Office"
+                >
+
+                <img
+                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85"
+                    alt="Team Work"
+                >
+
+                <img
+                    src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85"
+                    alt="Employees"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         JOB TYPES
+    ========================== -->
+
+    <section id="types">
+
+        <div class="section-title">
+
+            <h2>Explore Job Types</h2>
+
+            <p>
+                Choose the employment type that suits you
+            </p>
+
+        </div>
+
+
+        <div class="job-types">
+
+            <div class="type-card" onclick="filterJobs('Full Time')">
+
+                <div class="type-icon purple">💼</div>
+
+                <h3>Full Time</h3>
+
+                <p>Build your long-term career</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Freelance')">
+
+                <div class="type-icon pink">💻</div>
+
+                <h3>Freelance</h3>
+
+                <p>Work independently</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Remote')">
+
+                <div class="type-icon blue">🏠</div>
+
+                <h3>Work From Home</h3>
+
+                <p>Work from anywhere</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Part Time')">
+
+                <div class="type-icon green">⏰</div>
+
+                <h3>Part Time</h3>
+
+                <p>Flexible working hours</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Government')">
+
+                <div class="type-icon yellow">🏛️</div>
+
+                <h3>Government</h3>
+
+                <p>Government opportunities</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Internship')">
+
+                <div class="type-icon orange">🎓</div>
+
+                <h3>Internship</h3>
+
+                <p>Start your career</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Contract')">
+
+                <div class="type-icon purple">📑</div>
+
+                <h3>Contract</h3>
+
+                <p>Contract opportunities</p>
+
+            </div>
+
+
+            <div class="type-card" onclick="filterJobs('Remote')">
+
+                <div class="type-icon pink">🌎</div>
+
+                <h3>Remote Jobs</h3>
+
+                <p>Work from anywhere</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         JOBS
+    ========================== -->
+
+    <section class="job-section" id="jobs">
+
+        <div class="section-title">
+
+            <h2>Latest Job Opportunities</h2>
+
+            <p>
+                Find your next career opportunity
+            </p>
+
+        </div>
+
+
+        <!-- FILTER BUTTONS -->
+
+        <div class="filter-buttons">
+
+            <button
+                class="active"
+                onclick="filterJobs('All')"
+            >
+                All Jobs
+            </button>
+
+            <button onclick="filterJobs('Full Time')">
+                Full Time
+            </button>
+
+            <button onclick="filterJobs('Freelance')">
+                Freelance
+            </button>
+
+            <button onclick="filterJobs('Remote')">
+                Remote
+            </button>
+
+            <button onclick="filterJobs('Internship')">
+                Internship
+            </button>
+
+        </div>
+
+
+        <!-- JOB CARDS -->
+
+        <div class="jobs-container" id="jobsContainer">
+
+
+            <!-- JOB 1 -->
+
+            <div class="job-card" data-type="Freelance">
+
+                <div class="job-top">
+
+                    <div class="company-logo">
+                        WD
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="saveJob(this)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <h3>Freelance Web Designer</h3>
+
+                <div class="company">
+                    Creative Studio
+                </div>
+
+                <div class="job-info">
+                    📍 Remote
+                    💼 Freelance
+                </div>
+
+                <div class="salary">
+                    ₹20,000 - ₹45,000 / month
+                </div>
+
+                <span class="tag">
+                    HTML
+                </span>
+
+                <span class="tag">
+                    CSS
+                </span>
+
+                <span class="tag">
+                    UI Design
+                </span>
+
+                <button
+                    class="apply-btn"
+                    onclick="openApply('Freelance Web Designer')"
+                >
+                    Apply Now
+                </button>
+
+            </div>
+
+
+            <!-- JOB 2 -->
+
+            <div class="job-card" data-type="Full Time">
+
+                <div class="job-top">
+
+                    <div class="company-logo">
+                        CS
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="saveJob(this)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <h3>Customer Support Executive</h3>
+
+                <div class="company">
+                    Tech Solutions
+                </div>
+
+                <div class="job-info">
+                    📍 Hyderabad
+                    💼 Full Time
+                </div>
+
+                <div class="salary">
+                    ₹18,000 - ₹30,000 / month
+                </div>
+
+                <span class="tag">
+                    Communication
+                </span>
+
+                <span class="tag">
+                    Support
+                </span>
+
+                <button
+                    class="apply-btn"
+                    onclick="openApply('Customer Support Executive')"
+                >
+                    Apply Now
+                </button>
+
+            </div>
+
+
+            <!-- JOB 3 -->
+
+            <div class="job-card" data-type="Full Time">
+
+                <div class="job-top">
+
+                    <div class="company-logo">
+                        SE
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="saveJob(this)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <h3>Sales Executive</h3>
+
+                <div class="company">
+                    Bright Marketing
+                </div>
+
+                <div class="job-info">
+                    📍 Visakhapatnam
+                    💼 Full Time
+                </div>
+
+                <div class="salary">
+                    ₹20,000 - ₹35,000 / month
+                </div>
+
+                <span class="tag">
+                    Sales
+                </span>
+
+                <span class="tag">
+                    Marketing
+                </span>
+
+                <button
+                    class="apply-btn"
+                    onclick="openApply('Sales Executive')"
+                >
+                    Apply Now
+                </button>
+
+            </div>
+
+
+            <!-- JOB 4 -->
+
+            <div class="job-card" data-type="Government">
+
+                <div class="job-top">
+
+                    <div class="company-logo">
+                        GOV
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="saveJob(this)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <h3>Junior Assistant</h3>
+
+                <div class="company">
+                    Government Office
+                </div>
+
+                <div class="job-info">
+                    📍 Andhra Pradesh
+                    💼 Government
+                </div>
+
+                <div class="salary">
+                    ₹25,000 - ₹40,000 / month
+                </div>
+
+                <span class="tag">
+                    Office
+                </span>
+
+                <span class="tag">
+                    Computer
+                </span>
+
+                <button
+                    class="apply-btn"
+                    onclick="openApply('Junior Assistant')"
+                >
+                    Apply Now
+                </button>
+
+            </div>
+
+
+            <!-- JOB 5 -->
+
+            <div class="job-card" data-type="Internship">
+
+                <div class="job-top">
+
+                    <div class="company-logo">
+                        INT
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="saveJob(this)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <h3>Web Development Intern</h3>
+
+                <div class="company">
+                    StartUp Hub
+                </div>
+
+                <div class="job-info">
+                    📍 Bengaluru
+                    💼 Internship
+                </div>
+
+                <div class="salary">
+                    ₹10,000 - ₹15,000 / month
+                </div>
+
+                <span class="tag">
+                    HTML
+                </span>
+
+                <span class="tag">
+                    CSS
+                </span>
+
+                <span class="tag">
+                    JavaScript
+                </span>
+
+                <button
+                    class="apply-btn"
+                    onclick="openApply('Web Development Intern')"
+                >
+                    Apply Now
+                </button>
+
+            </div>
+
+
+            <!-- JOB 6 -->
+
+            <div class="job-card" data-type="Remote">
+
+                <div class="job-top">
+
+                    <div class="company-logo">
+                        JV
+                    </div>
+
+                    <button
+                        class="save-btn"
+                        onclick="saveJob(this)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <h3>Junior Java Developer</h3>
+
+                <div class="company">
+                    Software World
+                </div>
+
+                <div class="job-info">
+                    📍 Remote
+                    💼 Remote
+                </div>
+
+                <div class="salary">
+                    ₹30,000 - ₹60,000 / month
+                </div>
+
+                <span class="tag">
+                    Java
+                </span>
+
+                <span class="tag">
+                    SQL
+                </span>
+
+                <button
+                    class="apply-btn"
+                    onclick="openApply('Junior Java Developer')"
+                >
+                    Apply Now
+                </button>
+
+            </div>
+
+        </div>
+
+        <p
+            id="noJobs"
+            style="display:none;text-align:center;margin-top:30px;font-weight:bold;"
+        >
+            😔 No jobs found.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         CAREERS
+    ========================== -->
+
+    <section id="careers">
+
+        <div class="section-title">
+
+            <h2>Popular Career Categories</h2>
+
+            <p>
+                Explore jobs in different industries
+            </p>
+
+        </div>
+
+
+        <div class="career-grid">
+
+            <div class="career">
+                💻<br><br>
+                IT & Software
+            </div>
+
+            <div class="career">
+                🏥<br><br>
+                Healthcare
+            </div>
+
+            <div class="career">
+                📢<br><br>
+                Marketing
+            </div>
+
+            <div class="career">
+                🎨<br><br>
+                Creative
+            </div>
+
+            <div class="career">
+                🚚<br><br>
+                Logistics
+            </div>
+
+            <div class="career">
+                📚<br><br>
+                Education
+            </div>
+
+            <div class="career">
+                🏨<br><br>
+                Hospitality
+            </div>
+
+            <div class="career">
+                🏛️<br><br>
+                Government
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================== -->
+
+    <div class="cta">
+
+        <h2>
+            Ready to Build Your Career?
+        </h2>
+
+        <p>
+            Create your profile and start applying for jobs today.
+        </p>
+
+        <button onclick="openApply('JobNest Profile')">
+            Create Profile
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer id="contact">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3 class="logo">
+                    Job<span>Nest</span>
+                </h3>
+
+                <p>
+                    Your trusted platform for finding
+                    jobs, internships, freelance work
+                    and career opportunities.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>For Job Seekers</h3>
+
+                <a href="#jobs">
+                    Find Jobs
+                </a>
+
+                <a href="#types">
+                    Job Types
+                </a>
+
+                <a href="#">
+                    Career Advice
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h3>For Employers</h3>
+
+                <a href="#">
+                    Post a Job
+                </a>
+
+                <a href="#">
+                    Find Candidates
+                </a>
+
+                <a href="#">
+                    Pricing
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h3>Contact</h3>
+
+                <a href="#">
+                    📧 Email
+                </a>
+
+                <a href="#">
+                    📱 Phone
+                </a>
+
+                <a href="#">
+                    📍 India
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 JobNest. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         APPLY POPUP
+    ========================== -->
+
+    <div class="popup" id="applyPopup">
+
+        <div class="popup-box">
+
+            <span
+                class="close"
+                onclick="closeApply()"
+            >
+                ×
+            </span>
+
+            <h2>
+                Apply for Job
+            </h2>
+
+            <p id="selectedJob"></p>
+
+            <br>
+
+            <input
+                type="text"
+                placeholder="Your Name"
+                id="appName"
+            >
+
+            <input
+                type="email"
+                placeholder="Email Address"
+                id="appEmail"
+            >
+
+            <input
+                type="tel"
+                placeholder="Phone Number"
+                id="appPhone"
+            >
+
+            <textarea
+                rows="4"
+                placeholder="Tell us about yourself"
+                id="appMessage"
+            ></textarea>
+
+            <button onclick="submitApplication()">
+                Submit Application
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           SEARCH JOBS
+        ========================== */
+
+        function searchJobs() {
+
+            let search =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            let location =
+                document.getElementById("locationInput")
+                .value
+                .toLowerCase();
+
+            let jobs =
+                document.querySelectorAll(".job-card");
+
+            let found = 0;
+
+            jobs.forEach(function(job) {
+
+                let text =
+                    job.innerText.toLowerCase();
+
+                if (
+                    text.includes(search) &&
+                    text.includes(location)
+                ) {
+
+                    job.style.display = "block";
+
+                    found++;
+
+                } else {
+
+                    job.style.display = "none";
+
+                }
+
+            });
+
+
+            if(found === 0) {
+
+                document.getElementById("noJobs")
+                .style.display = "block";
+
+            } else {
+
+                document.getElementById("noJobs")
+                .style.display = "none";
+
+            }
+
+
+            document.getElementById("jobs")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* =========================
+           FILTER JOBS
+        ========================== */
+
+        function filterJobs(type) {
+
+            let jobs =
+                document.querySelectorAll(".job-card");
+
+            let found = 0;
+
+            jobs.forEach(function(job) {
+
+                if(
+                    type === "All" ||
+                    job.dataset.type === type
+                ) {
+
+                    job.style.display = "block";
+
+                    found++;
+
+                } else {
+
+                    job.style.display = "none";
+
+                }
+
+            });
+
+
+            if(found === 0) {
+
+                document.getElementById("noJobs")
+                .style.display = "block";
+
+            } else {
+
+                document.getElementById("noJobs")
+                .style.display = "none";
+
+            }
+
+
+            document.getElementById("jobs")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* =========================
+           SAVE JOB
+        ========================== */
+
+        function saveJob(button) {
+
+            button.classList.toggle("saved");
+
+            if(button.classList.contains("saved")) {
+
+                button.innerHTML = "♥";
+
+            } else {
+
+                button.innerHTML = "♡";
+
+            }
+
+        }
+
+
+        /* =========================
+           APPLY POPUP OPEN
+        ========================== */
+
+        function openApply(jobName) {
+
+            document.getElementById("applyPopup")
+            .style.display = "flex";
+
+            document.getElementById("selectedJob")
+            .innerText =
+            "Applying for: " + jobName;
+
+        }
+
+
+        /* =========================
+           CLOSE POPUP
+        ========================== */
+
+        function closeApply() {
+
+            document.getElementById("applyPopup")
+            .style.display = "none";
+
+        }
+
+
+        /* =========================
+           SUBMIT APPLICATION
+        ========================== */
+
+        function submitApplication() {
+
+            let name =
+                document.getElementById("appName").value;
+
+            let email =
+                document.getElementById("appEmail").value;
+
+            let phone =
+                document.getElementById("appPhone").value;
+
+
+            if(
+                name === "" ||
+                email === "" ||
+                phone === ""
+            ) {
+
+                alert("Please fill all required details.");
+
+                return;
+
+            }
+
+
+            alert(
+                "Application submitted successfully! 🎉"
+            );
+
+            closeApply();
+
+        }
+
+
+        /* =========================
+           DARK MODE
+        ========================== */
+
+        document
+        .getElementById("darkBtn")
+        .addEventListener("click", function() {
+
+            document.body.classList.toggle("dark");
+
+            if(
+                document.body.classList.contains("dark")
+            ) {
+
+                this.innerHTML = "☀️";
+
+            } else {
+
+                this.innerHTML = "🌙";
+
+            }
+
+        });
+
+
+        /* =========================
+           CLOSE POPUP WHEN CLICK
+           OUTSIDE
+        ========================== */
+
+        window.addEventListener(
+            "click",
+            function(event) {
+
+                let popup =
+                    document.getElementById("applyPopup");
+
+                if(event.target === popup) {
+
+                    closeApply();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
